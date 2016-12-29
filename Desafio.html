@@ -3,34 +3,30 @@
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta charset="UTF-8">
-	<title>DESAFIO FRONTEND</title>
+	<title>Document</title>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-<!-- Optional theme -->
+	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
+	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script type="text/javascript">
-		
 		$(document).ready(function () {
 			var arrNumeros = new Array();
-			
    		 	$('#btnAceptar').on('click', function(){
-	 			mostrarNumIngresados();
+	 			fnMostrarNumIngresados();
 			})
    		 	$('#btnOrdenar').on('click', function(){
    		 		if(arrNumeros.length==0){
    		 			alert("No hay data para ordenar");
    		 		}
-   		 		ordenar(arrNumeros);
+   		 		fnOrdenarNumeros(arrNumeros); 		 		
    		 	})
    		 	//Función que muestra lo números ingresados en cualquier orden.
-   		 	function mostrarNumIngresados(){
-   		 		var vnumero = $('#txtnumero').val();
-	 			var resultado="";
+   		 	function fnMostrarNumIngresados(){
+   		 		var vnumero = $('#txtNumero').val();
+	 			var vresultado="";
 	 			if(vnumero!=""){
 	 				if(arrNumeros.indexOf(vnumero) != -1){
 	 				alert("El número ya ha sido ingresado");
@@ -40,54 +36,50 @@
 		 			}
 		 			//Se prepara el resultado
 		 			for (var i = 0; i <= arrNumeros.length - 1; i++) {
-		 				resultado +=  arrNumeros[i] + "    ";
+		 				vresultado +=  arrNumeros[i] + "    ";
 		 			}
 		 			//Se agrega al div
-		 			$('#valoresIng').html(resultado);
+		 			$('#prValorIng').html(vresultado);
 		 			//Se limpia la caja de texto
-	   		 		$('#txtnumero').val("");
+	   		 		$('#txtNumero').val("");
 		 		}
 		 		else{
 		 			alert("Ingresar número")
 		 		}
    		 	}
-
    		 	//Función que genera el ordenamiento
-   		 	function ordenar(arreglo){
-   		 		var min;
-   		 		var result="";
-   		 		for (var i = 0; i < arreglo.length - 1; i++) {
+   		 	function fnOrdenarNumeros(arrObj){
+   		 		var vmin;
+   		 		var vresult="";
+   		 		for (var i = 0; i < arrObj.length - 1; i++) {
    		 			//Se guarda el indice
-   		 			min = i;
-   		 			for (var j = i + 1; j<arreglo.length ; j++) {
+   		 			vmin = i;
+   		 			for (var j = i + 1; j<arrObj.length ; j++) {
    		 				//Se hace la comparación para obtener el menor número
-   		 				if(parseInt(arreglo[j]) < parseInt(arreglo[i])){
+   		 				if(parseInt(arrObj[j]) < parseInt(arrObj[i])){
    		 					//Se guarda el número menor
-   		 					min = arreglo[j];
+   		 					vmin = arrObj[j];
    		 					//Se hace la permutación del número menor
-   		 					arreglo[j]=arrNumeros[i];
-   		 					arreglo[i]=min;
+   		 					arrObj[j]=arrNumeros[i];
+   		 					arrObj[i]=vmin;
    		 				}
    		 			}	
    		 		}
-   		 		for (var i = 0; i <= arreglo.length - 1; i++) {
-	 				result +=  arreglo[i] + "    ";
+   		 		for (var i = 0; i <= arrObj.length - 1; i++) {
+	 				vresult +=  arrObj[i] + "    ";
 	 			}
    		 		//Se agrega al div
-   		 		$('#valoresOrd').html(result)
+   		 		$('#prValorOrd').html(vresult);
    		 	}
 		});
-
-
-
 	</script>
 </head>
 <body>
 	<div class="container">
 			<h2 class="text-info">Desafío Frontend</h2>
 			<div class="form-group">
-				<label for="txtnumero">Ingresar Número: </label>
-				<input class="form-control"  type="number" name="" id="txtnumero" placeholder="Ingresar número">
+				<label for="txtNumero">Ingresar Número: </label>
+				<input class="form-control"  type="number" name="" id="txtNumero" placeholder="Ingresar número">
 			</div>	
 					
 			<button class="btn btn-primary" id="btnAceptar">Aceptar</button>
@@ -96,14 +88,14 @@
 
 			<br>
 			<div class="form-group">
-				<label for="valoresIng">Números ingresados </label>
-				<p><pre id="valoresIng"></pre></p>
+				<label for="prValorIng">Números ingresados </label>
+				<p><pre id="prValorIng"></pre></p>
 			</div>
 			
 			<br>
 			<div class="form-group">
-				<label for="valoresOrd">Números Ordenados </label>
-				<p><pre  id="valoresOrd"></pre></p>
+				<label for="prValorOrd">Números Ordenados </label>
+				<p><pre  id="prValorOrd"></pre></p>
 			</div>			 
 	</div>
 </body>
